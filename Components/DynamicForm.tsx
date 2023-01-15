@@ -1,27 +1,43 @@
 import * as React from 'react';
 import Input from './Input';
-import { getId, getRandomString, IRecord } from '../Util';
+import {
+  getId,
+  getRandomString,
+  IFormFieldMetaData,
+  IFormMetaData,
+  IRecord,
+} from '../Util';
 
 export interface IDynamicFormProps {
-  title: string;
   onAdd: (record: IRecord) => void;
+  formMetaData: IFormMetaData;
 }
 
 const DynamicForm: React.FC<IDynamicFormProps> = ({
-  title = '',
   onAdd = () => {},
+  formMetaData,
 }) => {
-  const getInitialRecord = React.useCallback(() => {
-    return {
-      id: getId(),
-      firstName: '',
-      lastName: '',
-      city: '',
-      age: 5,
-    };
-  }, []);
+  const getInitialRecord = React.useCallback(
+    (fields: IFormFieldMetaData[] = []): IRecord => {
+      const tempRecord: IRecord = {
+        id: getId(),
+      };
 
-  const [newRecord, setNewRecord] = React.useState<IRecord>(getInitialRecord());
+      fields.forEach((field) => {
+        tempRecord[field.key] =
+          field.type === 'text'
+            ? field.defaultValue || ''
+            : Number(field.defaultValue) || 0;
+      });
+
+      return tempRecord;
+    },
+    []
+  );
+
+  const [newRecord, setNewRecord] = React.useState<IRecord>(
+    getInitialRecord(formMetaData.fields)
+  );
 
   const submitHandler = React.useCallback(() => {
     const tempRecord = {};
@@ -31,7 +47,7 @@ const DynamicForm: React.FC<IDynamicFormProps> = ({
     });
     onAdd(tempRecord as IRecord);
 
-    setNewRecord(getInitialRecord());
+    setNewRecord(getInitialRecord(formMetaData.fields));
   }, [newRecord]);
 
   const changeHandler = React.useCallback(
@@ -48,31 +64,18 @@ const DynamicForm: React.FC<IDynamicFormProps> = ({
 
   return (
     <div className="dynamicFormWrap">
-      <h1>{title}</h1>
-      <Input
-        label="First Name"
-        type="text"
-        value={newRecord.firstName}
-        onChange={(v) => changeHandler('firstName', v)}
-      />
-      <Input
-        label="Last Name"
-        type="text"
-        value={newRecord.lastName}
-        onChange={(v) => changeHandler('lastName', v)}
-      />
-      <Input
-        label="City"
-        type="text"
-        value={newRecord.city}
-        onChange={(v) => changeHandler('city', v)}
-      />
-      <Input
-        label="Age"
-        type="number"
-        value={newRecord.age}
-        onChange={(v) => changeHandler('age', Number(v))}
-      />
+      <h1>{formMetaData.title}</h1>
+      {formMetaData.fields.map((field) => (
+        <Input
+          key={field.key}
+          label={field.label}
+          type={field.type}
+          value={newRecord[field.key]}
+          onChange={(v) =>
+            changeHandler(field.key, field.type === 'number' ? Number(v) : v)
+          }
+        />
+      ))}
       <br />
       <button className="b1" onClick={submitHandler}>
         Submit

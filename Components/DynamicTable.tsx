@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { IRecord } from '../Util';
+import { IFormMetaData, IRecord } from '../Util';
 
 export interface IDynamicTableProps {
   records: IRecord[];
   onDelete: (record: IRecord) => void;
+  formMetaData: IFormMetaData;
 }
 
 const DynamicTable: React.FC<IDynamicTableProps> = ({
   records = [],
   onDelete = () => {},
+  formMetaData,
 }) => {
   return (
     <div className="dynamicTableWrap scrollWrap">
@@ -16,10 +18,9 @@ const DynamicTable: React.FC<IDynamicTableProps> = ({
         <table className="dataDisplay">
           <thead>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>City</th>
-              <th>Age</th>
+              {formMetaData.fields.map((field) => (
+                <th key={field.key}>{field.label}</th>
+              ))}
               <th>Delete</th>
             </tr>
           </thead>
@@ -27,10 +28,11 @@ const DynamicTable: React.FC<IDynamicTableProps> = ({
             {records.map((record) => {
               return (
                 <tr key={record.id}>
-                  <td>{record.firstName}</td>
-                  <td>{record.lastName}</td>
-                  <td>{record.city}</td>
-                  <td>{record.age}</td>
+                  {formMetaData.fields.map((field) => (
+                    <td key={`${record.id}${field.key}`}>
+                      {record[field.key]}
+                    </td>
+                  ))}
                   <td>
                     <button className="b2" onClick={() => onDelete(record)}>
                       Delete

@@ -2,12 +2,12 @@ import * as React from 'react';
 import './style.css';
 import DynamicForm from './Components/DynamicForm';
 import DynamicTable from './Components/DynamicTable';
-import { generateRandomRecord, IRecord } from './Util';
+import { formMetaData, generateRandomRecord, IRecord } from './Util';
 
 export default function App() {
   const [records, setRecords] = React.useState<IRecord[]>([
-    generateRandomRecord(),
-    generateRandomRecord(),
+    generateRandomRecord(formMetaData.fields),
+    generateRandomRecord(formMetaData.fields),
   ]);
 
   const addHandler = React.useCallback((record: IRecord) => {
@@ -24,8 +24,12 @@ export default function App() {
 
   return (
     <React.Fragment>
-      <DynamicForm title="User Information" onAdd={addHandler} />
-      <DynamicTable records={records} onDelete={deleteHandler} />
+      <DynamicForm onAdd={addHandler} formMetaData={formMetaData} />
+      <DynamicTable
+        records={records}
+        onDelete={deleteHandler}
+        formMetaData={formMetaData}
+      />
     </React.Fragment>
   );
 }
