@@ -120,12 +120,13 @@ body {
 }
 
 .dynamicFormWrap {
-  flex: 0 0 auto;
+  flex: 1 1 60%;
   background: #fff;
   padding: 12px 16px;
   margin: 0;
   border-radius: 4px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  overflow: auto;
 }
 
 .dynamicFormWrap h1 {
@@ -139,7 +140,7 @@ body {
 
 .dynamicTableWrap {
   width: 100%;
-  flex: 1 1 auto;
+  flex: 1 1 40%;
   border: 0;
   background: #fff;
   padding: 12px 16px;

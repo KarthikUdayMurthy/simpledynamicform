@@ -20,13 +20,8 @@ export const formMetaData: IFormMetaData = {
   fields: [
     {
       type: 'text',
-      key: 'firstName',
-      label: 'First Name',
-    },
-    {
-      type: 'text',
-      key: 'lastName',
-      label: 'Last Name',
+      key: 'fullName',
+      label: 'Full Name',
     },
     {
       type: 'text',

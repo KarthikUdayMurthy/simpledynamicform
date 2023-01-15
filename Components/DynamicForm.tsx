@@ -42,7 +42,12 @@ const DynamicForm: React.FC<IDynamicFormProps> = ({
   const submitHandler = React.useCallback(() => {
     const tempRecord = {};
     Object.keys(newRecord).forEach((k) => {
-      const value = newRecord[k] === '' ? getRandomString(8) : newRecord[k];
+      const value =
+        newRecord[k] === ''
+          ? getRandomString(8)
+          : newRecord[k] === 0
+          ? Math.round(Math.random() * 100)
+          : newRecord[k];
       tempRecord[k] = value;
     });
     onAdd(tempRecord as IRecord);
@@ -63,7 +68,7 @@ const DynamicForm: React.FC<IDynamicFormProps> = ({
   );
 
   return (
-    <div className="dynamicFormWrap">
+    <div className="dynamicFormWrap scrollWrap">
       <h1>{formMetaData.title}</h1>
       {formMetaData.fields.map((field) => (
         <Input
