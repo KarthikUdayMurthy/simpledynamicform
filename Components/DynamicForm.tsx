@@ -11,11 +11,13 @@ import {
 export interface IDynamicFormProps {
   onAdd: (record: IRecord) => void;
   formMetaData: IFormMetaData;
+  onFormMetaDataEdit: () => void;
 }
 
 const DynamicForm: React.FC<IDynamicFormProps> = ({
   onAdd = () => {},
   formMetaData,
+  onFormMetaDataEdit = () => {},
 }) => {
   const getInitialRecord = React.useCallback(
     (fields: IFormFieldMetaData[] = []): IRecord => {
@@ -69,7 +71,12 @@ const DynamicForm: React.FC<IDynamicFormProps> = ({
 
   return (
     <div className="dynamicFormWrap">
-      <h1>{formMetaData.title}</h1>
+      <h1>
+        {formMetaData.title}
+        <span className="editButton" onClick={onFormMetaDataEdit}>
+          &#9998;
+        </span>
+      </h1>
       <div className="fieldsWrap scrollWrap">
         {formMetaData.fields.map((field) => (
           <Input

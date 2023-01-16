@@ -1,23 +1,27 @@
 import * as React from 'react';
 import './style.css';
 import DynamicForm from './Components/DynamicForm';
+import DynamicFormEdit from './Components/DynamicFormEdit';
 import DynamicTable from './Components/DynamicTable';
-import { formMetaData, generateRandomRecord, IRecord } from './Util';
+import {
+  formMetaData as formMetaDataInitial,
+  generateRandomRecord,
+  IFormMetaData,
+  IRecord,
+} from './Util';
 
 export default function App() {
-  const [records, setRecords] = React.useState<IRecord[]>([
-    generateRandomRecord(formMetaData.fields),
-    generateRandomRecord(formMetaData.fields),
-    generateRandomRecord(formMetaData.fields),
-    generateRandomRecord(formMetaData.fields),
-    generateRandomRecord(formMetaData.fields),
-    generateRandomRecord(formMetaData.fields),
-    generateRandomRecord(formMetaData.fields),
-  ]);
+  const [formMetaData, setFormMetaData] =
+    React.useState<IFormMetaData>(formMetaDataInitial);
+
+  const [records, setRecords] = React.useState<IRecord[]>();
+
+  const [showDynamicFormEdit, setShowDynamicFormEdit] =
+    React.useState<boolean>(false);
 
   const addHandler = React.useCallback((record: IRecord) => {
     setRecords((r) => {
-      return [...r, record];
+      return [record, ...r];
     });
   }, []);
 
@@ -27,9 +31,36 @@ export default function App() {
     });
   }, []);
 
+  const formMetaDataEditHandler = React.useCallback(
+    (formMetaData: IFormMetaData) => {
+      setFormMetaData(formMetaData);
+    },
+    []
+  );
+
+  React.useEffect(() => {
+    setRecords(
+      Array(8)
+        .fill('')
+        .map(() => generateRandomRecord(formMetaData.fields))
+    );
+  }, [formMetaData]);
+
   return (
     <React.Fragment>
-      <DynamicForm onAdd={addHandler} formMetaData={formMetaData} />
+      {showDynamicFormEdit ? (
+        <DynamicFormEdit
+          onChange={formMetaDataEditHandler}
+          formMetaData={formMetaData}
+          onClose={() => setShowDynamicFormEdit(false)}
+        />
+      ) : (
+        <DynamicForm
+          onAdd={addHandler}
+          formMetaData={formMetaData}
+          onFormMetaDataEdit={() => setShowDynamicFormEdit(true)}
+        />
+      )}
       <DynamicTable
         records={records}
         onDelete={deleteHandler}

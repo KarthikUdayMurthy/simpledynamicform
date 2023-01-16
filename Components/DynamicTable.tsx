@@ -31,7 +31,7 @@ const DynamicTable: React.FC<IDynamicTableProps> = ({
       className={'dynamicTableWrap ' + (addExtraPadding ? ' extraPadding' : '')}
     >
       <div className="dynamicTableInnerWrap scrollWrap" ref={scrollRef}>
-        {records.length > 0 && (
+        {records.length > 0 ? (
           <table className="dataDisplay">
             <thead>
               <tr>
@@ -60,6 +60,8 @@ const DynamicTable: React.FC<IDynamicTableProps> = ({
               })}
             </tbody>
           </table>
+        ) : (
+          <div className="noDataText">No Data</div>
         )}
       </div>
     </div>
