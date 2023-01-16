@@ -44,7 +44,7 @@ const DynamicForm: React.FC<IDynamicFormProps> = ({
     Object.keys(newRecord).forEach((k) => {
       const value =
         newRecord[k] === ''
-          ? getRandomString(8)
+          ? getRandomString()
           : newRecord[k] === 0
           ? Math.round(Math.random() * 100)
           : newRecord[k];
@@ -68,21 +68,22 @@ const DynamicForm: React.FC<IDynamicFormProps> = ({
   );
 
   return (
-    <div className="dynamicFormWrap scrollWrap">
+    <div className="dynamicFormWrap">
       <h1>{formMetaData.title}</h1>
-      {formMetaData.fields.map((field) => (
-        <Input
-          key={field.key}
-          label={field.label}
-          type={field.type}
-          value={newRecord[field.key]}
-          onChange={(v) =>
-            changeHandler(field.key, field.type === 'number' ? Number(v) : v)
-          }
-        />
-      ))}
-      <br />
-      <button className="b1" onClick={submitHandler}>
+      <div className="fieldsWrap scrollWrap">
+        {formMetaData.fields.map((field) => (
+          <Input
+            key={field.key}
+            label={field.label}
+            type={field.type}
+            value={newRecord[field.key]}
+            onChange={(v) =>
+              changeHandler(field.key, field.type === 'number' ? Number(v) : v)
+            }
+          />
+        ))}
+      </div>
+      <button className="b1 block" onClick={submitHandler}>
         Submit
       </button>
     </div>

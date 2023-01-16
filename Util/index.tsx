@@ -1,3 +1,7 @@
+import * as data from './formMetaData.json';
+
+export const formMetaData = data;
+
 export interface IRecord {
   id: string;
   [index: string]: string | number;
@@ -15,29 +19,7 @@ export interface IFormMetaData {
   fields: IFormFieldMetaData[];
 }
 
-export const formMetaData: IFormMetaData = {
-  title: 'User Information',
-  fields: [
-    {
-      type: 'text',
-      key: 'fullName',
-      label: 'Full Name',
-    },
-    {
-      type: 'text',
-      key: 'city',
-      label: 'City',
-    },
-    {
-      type: 'number',
-      key: 'age',
-      label: 'Age',
-      defaultValue: '5',
-    },
-  ],
-};
-
-export const getRandomString = (length) => {
+export const getRandomString = (length = 8) => {
   var result = '';
   var characters = 'abcdefghijklmnopqrstuvwxyz';
   var charactersLength = characters.length;
@@ -61,7 +43,7 @@ export const generateRandomRecord = (
   fields.forEach((field) => {
     randomRecord[field.key] =
       field.type === 'text'
-        ? getRandomString(8)
+        ? getRandomString()
         : Math.round(Math.random() * 100);
   });
 

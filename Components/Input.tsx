@@ -21,7 +21,7 @@ const Input: React.FC<IInputProps> = ({
 
   return (
     <div className={'inputWrap ' + (isFocused ? ' active' : '')}>
-      <label>{label}:</label>
+      <label className={isFocused || value !== '' ? 'top' : ''}>{label}</label>
       <input
         type={type}
         value={value}

@@ -1,0 +1,21 @@
+{
+  "title": "User Information",
+  "fields": [
+    {
+      "type": "text",
+      "key": "fullName",
+      "label": "Full Name"
+    },
+    {
+      "type": "text",
+      "key": "city",
+      "label": "City"
+    },
+    {
+      "type": "number",
+      "key": "age",
+      "label": "Age",
+      "defaultValue": "5"
+    }
+  ]
+}
