@@ -8,6 +8,11 @@ export default function App() {
   const [records, setRecords] = React.useState<IRecord[]>([
     generateRandomRecord(formMetaData.fields),
     generateRandomRecord(formMetaData.fields),
+    generateRandomRecord(formMetaData.fields),
+    generateRandomRecord(formMetaData.fields),
+    generateRandomRecord(formMetaData.fields),
+    generateRandomRecord(formMetaData.fields),
+    generateRandomRecord(formMetaData.fields),
   ]);
 
   const addHandler = React.useCallback((record: IRecord) => {
