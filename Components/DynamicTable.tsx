@@ -39,6 +39,9 @@ const DynamicTable: React.FC<IDynamicTableProps> = ({
       <div className="dynamicTableInnerWrap scrollWrap" ref={scrollRef}>
         {records.length > 0 ? (
           <table className="dataDisplay">
+            <caption>
+              &#9783; {formMetaData.title} ({records.length})
+            </caption>
             <thead>
               <tr>
                 {formMetaData.fields.map((field) => (
@@ -67,7 +70,7 @@ const DynamicTable: React.FC<IDynamicTableProps> = ({
             </tbody>
           </table>
         ) : (
-          <div className="noDataText">No Data</div>
+          <div className="noDataText">{formMetaData.title} - No Data</div>
         )}
       </div>
     </div>

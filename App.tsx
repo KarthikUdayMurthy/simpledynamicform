@@ -37,7 +37,7 @@ export default function App() {
         .fill('')
         .map(() => generateRandomRecord(formMetaData.fields))
     );
-  }, [formMetaData, showDynamicFormEdit]);
+  }, [formMetaData.fields, showDynamicFormEdit]);
 
   return (
     <React.Fragment>

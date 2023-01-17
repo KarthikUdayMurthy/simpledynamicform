@@ -72,6 +72,7 @@ body {
   left: 0;
   font-weight: 700;
   cursor: default;
+  color: #666;
 }
 
 .inputWrap input {
@@ -86,6 +87,7 @@ body {
   color: #000;
   transition: all 0.3s;
   width: 100%;
+  background: transparent;
 }
 
 .inputWrap.active label {
@@ -178,7 +180,7 @@ body {
   -ms-transform: rotate(90deg);
   cursor: pointer;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #2196f3;
   height: 28px;
   width: 28px;
   display: flex;
@@ -186,11 +188,12 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  color: #2196f3;
 }
 
 .dynamicFormWrap h1 .editButton:hover {
-  color: #2196f3;
-  border-color: #2196f3;
+  color: #fff;
+  background-color: #2196f3;
 }
 
 .dynamicFormWrap .fieldsWrap {
@@ -223,7 +226,7 @@ body {
 }
 
 .dynamicTableWrap.small {
-  flex-basis: 25%;
+  flex-basis: 28%;
 }
 
 .dynamicTableWrap.extraPadding {
@@ -258,6 +261,14 @@ body {
   border-collapse: collapse;
   text-align: left;
   position: relative;
+}
+
+.dataDisplay caption {
+  background: #333;
+  color: #ccc;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.9px;
 }
 
 .dataDisplay th,
@@ -295,14 +306,14 @@ body {
 }
 
 .dynamicFormEditWrap {
-  flex: 1 1 75%;
+  flex: 1 1 72%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
   gap: 12px;
   background: #fff;
-  padding: 12px 16px;
+  padding: 0;
   margin: 0 auto;
   border-radius: 4px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -311,7 +322,8 @@ body {
 
 .dynamicFormEditWrap h1 {
   flex: 0 0 auto;
-  padding: 0;
+  padding: 12px 16px;
+  padding-bottom: 0;
   margin: 0;
   color: #666;
   font-weight: normal;
@@ -326,32 +338,39 @@ body {
 .dynamicFormEditWrap h1 .closeButton {
   cursor: pointer;
   border-radius: 4px;
-  border: 1px solid #ccc;
-  height: 28px;
-  width: 28px;
+  border: 1px solid #2196f3;
+  padding: 4px 8px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  /* height: 36px; */
+  /* width: 28px; */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  color: #2196f3;
 }
 
 .dynamicFormEditWrap h1 .closeButton:hover {
-  color: #f44336;
-  border-color: #f44336;
+  color: #fff;
+  background-color: #2196f3;
 }
 
 .dynamicFormEditWrap .fieldsWrap {
   flex: 1 1 auto;
   overflow: auto;
-  padding: 12px 12px;
+  padding: 12px 16px;
+  margin: 0 12px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
   gap: 12px;
   border: 0;
-  border-top: 1px solid #eee;
+  background: #eee;
+  border-radius: 4px;
 }
 
 .dynamicFormEditWrap .fieldsWrap .fieldWrap {
@@ -360,7 +379,7 @@ body {
   gap: 12px;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
   padding: 12px 0px;
   padding-top: 24px;
   position: relative;
@@ -376,7 +395,7 @@ body {
   left: 0;
   font-size: 14px;
   font-weight: 700;
-  background-color: #dfdfdf;
+  background-color: #eeffff;
   color: #666;
   padding: 1px 8px;
   border-radius: 84px;
@@ -409,15 +428,34 @@ body {
   gap: 12px;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #eee;
-  padding: 12px 0px;
+  border: 0;
+  padding: 12px 16px;
+  padding-top: 24px;
+  margin: 0px 12px;
+  margin-bottom: 12px;
+  position: relative;
+  background: #e7ffe7;
+}
+
+.dynamicFormEditWrap .addFieldWrap .addFieldCaption {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  font-size: 16px;
+  font-weight: 700;
+  background-color: transparent;
+  color: #666;
+  padding: 0;
+  border-radius: 84px;
+  align-self: flex-start;
 }
 
 .dynamicFormEditWrap .addFieldWrap .addButton {
   cursor: pointer;
-  font-size: 24px;
+  font-size: 28px;
   border-radius: 4px;
-  border: 1px solid #4caf50;
+  border: 0;
   height: 32px;
   width: 48px;
   display: flex;
@@ -425,23 +463,23 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
-  color: #4caf50;
   visibility: visible;
+  color: #fff;
+  background-color: #4caf50;
+  box-shadow: 0;
+  font-weight: 600;
 }
 
 .dynamicFormEditWrap .addFieldWrap .addButton.disabled {
   cursor: not-allowed;
-  color: #999;
-  border-color: #999;
+  background-color: #999;
 }
 .dynamicFormEditWrap .addFieldWrap .addButton.disabled:hover {
-  color: #999;
-  background-color: transparent;
+  box-shadow: 0;
 }
 
 .dynamicFormEditWrap .addFieldWrap .addButton:hover {
-  color: #fff;
-  background-color: #4caf50;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .dynamicFormEditWrap .addFieldWrap .typeButtonsWrap {

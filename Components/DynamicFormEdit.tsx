@@ -80,7 +80,7 @@ const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
           }
         />
         <span className="closeButton" onClick={onClose}>
-          &times;
+          &#10004;&nbsp;Done
         </span>
       </h1>
       <div className="fieldsWrap scrollWrap">
@@ -105,12 +105,15 @@ const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
               className="deleteButton"
               onClick={() => deleteFieldHandler(field.key)}
             >
-              &#9938;
+              &#10006;
             </span>
           </div>
         ))}
       </div>
       <div className="addFieldWrap">
+        <span className="addFieldCaption">
+          Add new field&nbsp;&#10010;&nbsp;
+        </span>
         <Input
           label="Key"
           value={newField.key}
