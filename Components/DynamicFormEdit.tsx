@@ -1,12 +1,6 @@
 import * as React from 'react';
 import Input from './Input';
-import {
-  getId,
-  getRandomString,
-  IFormFieldMetaData,
-  IFormMetaData,
-  IRecord,
-} from '../Util';
+import { IFormFieldMetaData, IFormMetaData } from '../Util';
 
 export interface IDynamicFormEditProps {
   setFormMetaData: React.Dispatch<React.SetStateAction<IFormMetaData>>;
@@ -91,31 +85,29 @@ const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
       </h1>
       <div className="fieldsWrap scrollWrap">
         {formMetaData.fields.map((field) => (
-          <React.Fragment>
-            <div className="fieldWrap" key={field.key}>
-              <span className="fieldKeyWrap">{field.key}</span>
-              <Input
-                label="Label"
-                value={field.label}
-                type="text"
-                onChange={(v) => fieldChangeHandler(field.key, 'label', v)}
-              />
-              <Input
-                label="Default"
-                value={field.defaultValue}
-                type="text"
-                onChange={(v) =>
-                  fieldChangeHandler(field.key, 'defaultValue', v)
-                }
-              />
-              <span
-                className="deleteButton"
-                onClick={() => deleteFieldHandler(field.key)}
-              >
-                &#9938;
-              </span>
-            </div>
-          </React.Fragment>
+          <div className="fieldWrap" key={field.key}>
+            <span className="fieldKeyWrap">
+              &#10096;&nbsp;{field.key}&nbsp;&#10097;
+            </span>
+            <Input
+              label="Label"
+              value={field.label}
+              type="text"
+              onChange={(v) => fieldChangeHandler(field.key, 'label', v)}
+            />
+            <Input
+              label="Default"
+              value={field.defaultValue}
+              type="text"
+              onChange={(v) => fieldChangeHandler(field.key, 'defaultValue', v)}
+            />
+            <span
+              className="deleteButton"
+              onClick={() => deleteFieldHandler(field.key)}
+            >
+              &#9938;
+            </span>
+          </div>
         ))}
       </div>
       <div className="addFieldWrap">
@@ -138,16 +130,6 @@ const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
         <span className="typeButtonsWrap">
           <span
             className={
-              'typeButton ' + (newField.type === 'number' ? 'active' : '')
-            }
-            onClick={() => {
-              newFieldChangeHandler('type', 'number');
-            }}
-          >
-            12
-          </span>
-          <span
-            className={
               'typeButton ' + (newField.type === 'text' ? 'active' : '')
             }
             onClick={() => {
@@ -155,6 +137,16 @@ const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
             }}
           >
             ab
+          </span>
+          <span
+            className={
+              'typeButton ' + (newField.type === 'number' ? 'active' : '')
+            }
+            onClick={() => {
+              newFieldChangeHandler('type', 'number');
+            }}
+          >
+            12
           </span>
         </span>
 

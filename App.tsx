@@ -17,7 +17,7 @@ export default function App() {
   const [records, setRecords] = React.useState<IRecord[]>();
 
   const [showDynamicFormEdit, setShowDynamicFormEdit] =
-    React.useState<boolean>(true);
+    React.useState<boolean>(false);
 
   const addHandler = React.useCallback((record: IRecord) => {
     setRecords((r) => {
