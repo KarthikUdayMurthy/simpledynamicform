@@ -5,12 +5,14 @@ export interface IDynamicTableProps {
   records: IRecord[];
   onDelete: (record: IRecord) => void;
   formMetaData: IFormMetaData;
+  isSmall: boolean;
 }
 
 const DynamicTable: React.FC<IDynamicTableProps> = ({
   records = [],
   onDelete = () => {},
   formMetaData,
+  isSmall = false,
 }) => {
   const scrollRef = React.useRef<HTMLDivElement>();
 
@@ -28,7 +30,11 @@ const DynamicTable: React.FC<IDynamicTableProps> = ({
 
   return (
     <div
-      className={'dynamicTableWrap ' + (addExtraPadding ? ' extraPadding' : '')}
+      className={
+        'dynamicTableWrap ' +
+        (addExtraPadding ? ' extraPadding' : '') +
+        (isSmall ? ' small' : '')
+      }
     >
       <div className="dynamicTableInnerWrap scrollWrap" ref={scrollRef}>
         {records.length > 0 ? (

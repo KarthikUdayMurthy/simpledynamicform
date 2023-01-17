@@ -9,13 +9,13 @@ import {
 } from '../Util';
 
 export interface IDynamicFormEditProps {
-  onChange: (formMetaData: IFormMetaData) => void;
+  setFormMetaData: React.Dispatch<React.SetStateAction<IFormMetaData>>;
   formMetaData: IFormMetaData;
   onClose: () => void;
 }
 
 const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
-  onChange = () => {},
+  setFormMetaData = () => {},
   formMetaData,
   onClose = () => {},
 }) => {
@@ -33,16 +33,16 @@ const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
   }, []);
 
   const addNewFieldHandler = React.useCallback(() => {
-    onChange({
+    setFormMetaData((formMetaData) => ({
       ...formMetaData,
       fields: [...formMetaData.fields, { ...newField }],
-    });
+    }));
     setNewField({ key: '', label: '', type: 'text' });
-  }, [onChange, formMetaData, newField]);
+  }, [setFormMetaData, newField]);
 
   const fieldChangeHandler = React.useCallback(
     (fieldKey: string, k: string, v: string) => {
-      onChange({
+      setFormMetaData((formMetaData) => ({
         ...formMetaData,
         fields: formMetaData.fields.map((f) =>
           f.key === fieldKey
@@ -54,25 +54,37 @@ const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
                 ...f,
               }
         ),
-      });
+      }));
     },
-    [onChange, formMetaData]
+    [setFormMetaData]
   );
 
   const deleteFieldHandler = React.useCallback(
     (fieldKey: string) => {
-      onChange({
+      setFormMetaData((formMetaData) => ({
         ...formMetaData,
         fields: formMetaData.fields.filter(({ key }) => key !== fieldKey),
-      });
+      }));
     },
-    [onChange, formMetaData]
+    [setFormMetaData]
   );
+
+  const isAddDisabled =
+    newField.key === '' ||
+    newField.label === '' ||
+    formMetaData.fields.findIndex(({ key }) => key === newField.key) !== -1;
 
   return (
     <div className="dynamicFormEditWrap">
       <h1>
-        Edit Form
+        <Input
+          label="Form Name"
+          value={formMetaData.title}
+          type="text"
+          onChange={(v) =>
+            setFormMetaData((formMetaData) => ({ ...formMetaData, title: v }))
+          }
+        />
         <span className="closeButton" onClick={onClose}>
           &times;
         </span>
@@ -80,8 +92,8 @@ const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
       <div className="fieldsWrap scrollWrap">
         {formMetaData.fields.map((field) => (
           <React.Fragment>
-            <span className="fieldKeyWrap">{field.key}</span>
             <div className="fieldWrap" key={field.key}>
+              <span className="fieldKeyWrap">{field.key}</span>
               <Input
                 label="Label"
                 value={field.label}
@@ -147,16 +159,8 @@ const DynamicFormEdit: React.FC<IDynamicFormEditProps> = ({
         </span>
 
         <span
-          className={
-            'addButton ' +
-            (newField.key === '' ||
-            newField.label === '' ||
-            formMetaData.fields.findIndex(({ key }) => key === newField.key) !==
-              -1
-              ? 'disabled'
-              : '')
-          }
-          onClick={addNewFieldHandler}
+          className={'addButton ' + (isAddDisabled ? 'disabled' : '')}
+          onClick={isAddDisabled ? undefined : addNewFieldHandler}
         >
           &#43;
         </span>

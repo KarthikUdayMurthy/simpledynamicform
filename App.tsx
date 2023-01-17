@@ -17,7 +17,7 @@ export default function App() {
   const [records, setRecords] = React.useState<IRecord[]>();
 
   const [showDynamicFormEdit, setShowDynamicFormEdit] =
-    React.useState<boolean>(false);
+    React.useState<boolean>(true);
 
   const addHandler = React.useCallback((record: IRecord) => {
     setRecords((r) => {
@@ -31,26 +31,19 @@ export default function App() {
     });
   }, []);
 
-  const formMetaDataEditHandler = React.useCallback(
-    (formMetaData: IFormMetaData) => {
-      setFormMetaData(formMetaData);
-    },
-    []
-  );
-
   React.useEffect(() => {
     setRecords(
-      Array(8)
+      Array(showDynamicFormEdit ? 2 : 8)
         .fill('')
         .map(() => generateRandomRecord(formMetaData.fields))
     );
-  }, [formMetaData]);
+  }, [formMetaData, showDynamicFormEdit]);
 
   return (
     <React.Fragment>
       {showDynamicFormEdit ? (
         <DynamicFormEdit
-          onChange={formMetaDataEditHandler}
+          setFormMetaData={setFormMetaData}
           formMetaData={formMetaData}
           onClose={() => setShowDynamicFormEdit(false)}
         />
@@ -65,6 +58,7 @@ export default function App() {
         records={records}
         onDelete={deleteHandler}
         formMetaData={formMetaData}
+        isSmall={showDynamicFormEdit}
       />
     </React.Fragment>
   );
