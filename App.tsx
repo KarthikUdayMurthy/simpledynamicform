@@ -31,6 +31,10 @@ export default function App() {
     });
   }, []);
 
+  const deleteAllHandler = React.useCallback(() => {
+    setRecords([]);
+  }, []);
+
   React.useEffect(() => {
     setRecords(
       Array(showDynamicFormEdit ? 2 : 8)
@@ -57,6 +61,7 @@ export default function App() {
       <DynamicTable
         records={records}
         onDelete={deleteHandler}
+        onDeleteAll={deleteAllHandler}
         formMetaData={formMetaData}
         isSmall={showDynamicFormEdit}
       />

@@ -156,8 +156,20 @@ body {
   border-radius: 4px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   overflow: hidden;
-  min-width: 320px;
-  max-width: 400px;
+  min-width: 480px;
+  max-width: 480px;
+}
+
+@media (max-width: 520px) {
+  .dynamicFormWrap {
+    min-width: 320px;
+  }
+}
+
+@media (max-width: 350px) {
+  .dynamicFormWrap {
+    min-width: auto;
+  }
 }
 
 .dynamicFormWrap h1 {
@@ -290,6 +302,34 @@ body {
   top: 0;
   background: #333;
   color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+  user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.dataDisplay th.sortableHeader:hover,
+.dataDisplay th.sortableHeader:focus {
+  color: #00bcd4;
+}
+
+.dataDisplay th .sortIcon {
+  margin: 0;
+  margin-left: 6px;
+  visibility: hidden;
+  color: #00bcd4;
+  font-weight: bold;
+}
+
+.dataDisplay th .sortIcon.visible {
+  visibility: visible;
+}
+
+.dataDisplay th.deleteAllHeader:hover,
+.dataDisplay th.deleteAllHeader:focus {
+  color: #f66;
 }
 
 .dataDisplay td {
